@@ -39,7 +39,7 @@ def check_TPS(graph, tps):
 def write_tps_to_file(tps, filename):
     with open('output_' + filename, 'w') as file:
         for node in tps:
-            file.write(node + ' ')
+            file.write(str(node) + ' ')
 
 
 def compute_tps(filename):
@@ -48,8 +48,22 @@ def compute_tps(filename):
     """ <filename> is the name of the input file containing graph information:
     you need to read it in and perform the topological sort, saving the results
     in tps, then use write_tps_to_file() to output it to a file called output_<filename>"""
-    tps = []
+    inputDict = graph.read_graph(filename)
+    tps = topoSort(inputDict)
     write_tps_to_file(tps, filename)
+
+def topoSort(inputDict):
+    numVertices = len(inputDict)
+    verticesVisited = []
+    for x in range(numVertices):
+        verticesVisited.append(False)
+    sortedList = []
+    for x in range(numVertices):
+        if verticesVisited[x] != True:
+            recursiveTopoSort(x, inputDict, sortedList, verticesVisited)
+    print(sortedList)
+    return sortedList
+			
 
 
 if __name__ == '__main__':
