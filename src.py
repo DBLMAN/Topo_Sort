@@ -52,6 +52,15 @@ def compute_tps(filename):
     tps = topoSort(inputDict)
     write_tps_to_file(tps, filename)
 
+def compute_time_tps(filename):
+    import time
+    inputDict = graph.read_graph(filename)
+    start_time = time.process_time()
+    tps = topoSort(inputDict)
+    end_time = time.process_time()
+    write_tps_to_file(tps, filename)
+    print("Ran in: {:.5f} secs".format(end_time - start_time))
+
 def topoSort(inputDict):
     numVertices = len(inputDict)
     verticesVisited = []
@@ -74,6 +83,4 @@ if __name__ == '__main__':
     """ Write code here to run compute_tps for your testing purposes"""
     import sys
     filename = sys.argv[1]
-    compute_tps(filename)
-
-
+    compute_time_tps(filename)
