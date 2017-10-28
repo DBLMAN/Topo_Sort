@@ -61,13 +61,19 @@ def topoSort(inputDict):
     for x in range(numVertices):
         if verticesVisited[x] != True:
             recursiveTopoSort(x, inputDict, sortedList, verticesVisited)
-    print(sortedList)
     return sortedList
 			
-
+def recursiveTopoSort(vertex, inputDict, sortedList, verticesVisited):
+    verticesVisited[vertex] = True
+    for y in inputDict[vertex]:
+        if verticesVisited[y] == False:
+            recursiveTopoSort(y, inputDict, sortedList, verticesVisited)
+    sortedList.insert(0, vertex)
 
 if __name__ == '__main__':
     """ Write code here to run compute_tps for your testing purposes"""
     import sys
     filename = sys.argv[1]
     compute_tps(filename)
+
+
